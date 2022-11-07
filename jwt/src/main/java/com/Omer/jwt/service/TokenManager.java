@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 @Service
-public class JwtUtilService {
+public class TokenManager {
 
 /*
 	@Value("${khmerside.app.jwtexpirationms}")
@@ -25,7 +25,6 @@ public class JwtUtilService {
 	
 	@SuppressWarnings("deprecation")
 	private String createToken(Map<String, Object> claims, String subject) {
-		System.out.println("burada patladı");
 		String token= Jwts.builder()
 				.setClaims(claims)
 				.setSubject(subject)

@@ -1,11 +1,9 @@
 package com.Omer.jwt.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor

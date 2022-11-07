@@ -1,6 +1,6 @@
 package com.Omer.jwt.jwtfilter;
 
-import com.Omer.jwt.service.JwtUtilService;
+import com.Omer.jwt.service.TokenManager;
 import com.Omer.jwt.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtUtilService jwtUtilService;
+	private TokenManager tokenManager;
 	
 	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
@@ -35,14 +35,15 @@ public class JwtFilter extends OncePerRequestFilter {
 		String username = null;
 		
 		if(authorizationHeader !=null && authorizationHeader.startsWith("Bearer")) {
+
 			token = authorizationHeader.substring(7);
-			username = jwtUtilService.extractUsername(token);
+			username = tokenManager.extractUsername(token);
 		}
 		
-		if(username !=null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			
+		if(username !=null && SecurityContextHolder.getContext().getAuthentication() == null) { // username null değil(username null olmaması için authorizationheaderın null olamaması ve token ile get isteği atılması gerekir)
+				// ve kullanıcı daha önce bu token ile sisteme login olmamışsa
 			UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
-			if(jwtUtilService.validateToken(token, userDetails)) {
+			if(tokenManager.validateToken(token, userDetails)) {
 				
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
 						new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -54,7 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			
 		}
 		
-		filterChain.doFilter(request, response);
+		filterChain.doFilter(request, response);// hiçbiri değilse işleme devam et
 		
 	}
 
