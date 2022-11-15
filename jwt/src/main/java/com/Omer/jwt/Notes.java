@@ -163,7 +163,7 @@ Security Configurasyon sınıfında jwt confiurtaion ları yapıldı ve proje ha
                                      ------------------------------------------------->   |        |
                                                                                           |   1)   |
                                                                                           |        |
-                                                                                       Yes|        |Is there token
+                                                                                  username|        | token
                                                                                           |       \/
 
                                                                                         Token Manager
