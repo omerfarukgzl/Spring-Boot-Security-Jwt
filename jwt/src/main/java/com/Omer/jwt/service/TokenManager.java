@@ -23,7 +23,7 @@ public class TokenManager {
 /*	SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	String jwtTokenKey = Encoders.BASE64.encode(key.getEncoded());*/
 	
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	private String createToken(Map<String, Object> claims, String subject) {
 		String token= Jwts.builder()
 				.setClaims(claims)
